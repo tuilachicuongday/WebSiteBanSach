@@ -1,0 +1,189 @@
+﻿@model BanSach.Web.ViewModels.CategorySearchViewModel
+@{
+    ViewBag.Title = "CategoryTable";
+}
+
+<div>
+    <form method="post">
+        <div class="row">
+            <div class="col-md-8">
+                <div class="form-group">
+                    <label>Search</label>
+                    <input class="form-control" id="searchTxt" name="Search" value="@Model.Search" />
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label>Action</label>
+                    <div class="row">
+                        <div class="col-md-4 pr-0">
+                            <button class="btn btn-primary form-control" type="button" id="searchBtn">Search</button>
+                        </div>
+                        <div class="col-md-4 pr-0">
+                            <button class="btn btn-primary form-control" type="button" id="resetBtn">Reset</button>
+                        </div>
+                        <div class="col-md-4 pr-0">
+                            <button class="btn btn-primary form-control" type="button" id="newBtn">New</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+<div>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th class="font-weight-bold">Category</th>
+                <th class="font-weight-bold">Books</th>
+                <th class="font-weight-bold">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model.Categories != null && Model.Categories.Count > 0)
+            {
+                foreach (var category in Model.Categories)
+                {
+                    <tr>
+                        <td>@category.Name</td>
+                        <td>
+                            @category.Books.Count
+                        </td>
+                        <td>
+                            <button class="editBtn" data-id="@category.ID">Edit</button>
+                            <button class="deleteBtn" data-id="@category.ID">Delete</button>
+                        </td>
+                    </tr>
+
+                }
+            }
+            else
+            {
+                <tr><td colspan="3">No Category Found.</td></tr>
+            }
+
+        </tbody>
+    </table>
+    <div>
+        @if (Model.Pager != null && Model.Pager.TotalPages > 1)
+        {
+            if (Model.Pager.CurrentPage > 1)
+            {
+                <button class="pageButtons" data-pageNo="1">First</button>
+                <button class="pageButtons" data-pageNo="@(Model.Pager.CurrentPage -1 )">Previous</button>
+            }
+            for (var page = Model.Pager.StartPage; page <= Model.Pager.EndPage; page++)
+            {
+                string activeClass = Model.Pager.CurrentPage == page ? "active bg-info" : string.Empty;
+                <button class="@activeClass pageButtons" data-pageNo="@page">@page</button>
+
+            }
+            if (Model.Pager.CurrentPage < Model.Pager.EndPage)
+            {
+                <button class="pageButtons" data-pageNo="@(Model.Pager.CurrentPage + 1)">Next</button>
+                <button class="pageButtons" data-pageNo="@Model.Pager.EndPage">Last</button>
+            }
+        }
+
+    </div>
+</div>
+
+<script>
+
+    $('.pageButtons').click(function () {
+        $.ajax({
+            url: '/Category/CategoryTable',
+            data: {
+                pageNo: $(this).attr("data-pageNo"),
+                search: $("#searchTxt").val()
+            }
+        })
+            .done(function (response) {
+                $('#tableContainer').html(response);
+            })
+            .fail(function (XMLHttpRequest, textStatus, errorThrown) {
+                alert("Fail")
+            });
+    });
+    $('#searchBtn').click(function () {
+        var searchValue = $("#searchTxt").val();
+        $.ajax({
+            url: '/Category/CategoryTable',
+            data: {
+                search: searchValue
+            }
+        })
+            .done(function (response) {
+                $('#tableContainer').html(response);
+            })
+            .fail(function (XMLHttpRequest, textStatus, errorThrown) {
+                alert("Fail")
+            });
+    });
+    $('#newBtn').click(function () {
+        $.ajax({
+            url: '/Category/Create',
+        })
+            .done(function (response) {
+                $('#actionContainer').html(response);
+                focusAction()
+            })
+            .fail(function (XMLHttpRequest, textStatus, errorThrown) {
+                alert("Fail")
+            });
+    });
+    $('#resetBtn').click(function () {
+        var searchValue = '';
+        $.ajax({
+            url: '/Category/CategoryTable',
+            data: {
+                search: searchValue
+            }
+        })
+            .done(function (response) {
+                $('#tableContainer').html(response);
+            })
+            .fail(function (XMLHttpRequest, textStatus, errorThrown) {
+                alert("Fail")
+            });
+    });
+    $('.editBtn').click(function () {
+        $.ajax({
+            url: '/Category/Edit',
+            data: {
+                ID: $(this).attr('data-id')
+            }
+        })
+            .done(function (response) {
+                $('#actionContainer').html(response);
+                focusAction()
+            })
+            .fail(function (XMLHttpRequest, textStatus, errorThrown) {
+                alert("Fail")
+            });
+    });
+    $('.deleteBtn').click(function () {
+        var confirmDelete = confirm('Delete?');
+        if (confirmDelete) {
+            $.ajax({
+                type: "POST",
+                url: '/Category/Delete',
+                data: {
+                    ID: $(this).attr('data-id')
+                }
+            })
+                .done(function (response) {
+                    $('#tableContainer').html(response);
+                })
+                .fail(function (XMLHttpRequest, textStatus, errorThrown) {
+                    alert("Fail")
+                });
+        }
+    });
+    function focusAction() {
+        $('html, body').animate({
+            scrollTop: $("#actionContainer").offset().top + 400
+        }, 1000);
+    }
+</script>

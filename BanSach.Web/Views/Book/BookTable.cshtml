@@ -1,0 +1,250 @@
+﻿@model BookSearchViewModel
+@{
+    ViewBag.Title = "BookTable";
+}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.0/sweetalert.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.17.0/jquery.validate.min.js"></script>
+<div>
+    <form method="post">
+        <div class="row">
+            <div class="col-md-8">
+                <div class="form-group">
+                    <label>Search</label>
+                    <input class="form-control" id="searchTxt" name="Search" value="@Model.Search" />
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label>Action</label>
+                    <div class="row">
+                        <div class="col-md-4 pr-0">
+                            <button class="btn btn-primary form-control" type="button" id="searchBtn">Search</button>
+                        </div>
+                        <div class="col-md-4 pr-0">
+                            <button class="btn btn-primary form-control" type="button" id="resetBtn">Reset</button>
+                        </div>
+                        <div class="col-md-4 pr-0">
+                            <button class="btn btn-primary form-control" type="button" id="newBtn">New</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+<div>
+    <table id="BookTable" class="table table-striped">
+        <thead>
+            <tr>
+                <th class="font-weight-bold">Book Name</th>
+                <th class="font-weight-bold">Category</th>
+                <th class="font-weight-bold">Author</th>
+                <th class="font-weight-bold">Price</th>
+                <th class="font-weight-bold">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model.Books != null && Model.Books.Count > 0)
+            {
+                foreach (var book in Model.Books)
+                {
+            <tr>
+                <td>@book.Name</td>
+                <td>
+                    @if (book.Category != null)
+                    {
+                        <text>@book.Category.Name</text>
+                    }
+                    else
+                    {
+                        <text>-</text>
+                    }
+                </td>
+                <td>@book.Author</td>
+                <td>@book.Price</td>
+                <td>
+                    <button class="editBtn" data-id="@book.ID">Edit</button>
+                    <button class="deleteBtn" data-id="@book.ID">Delete</button>
+                </td>
+            </tr>
+                }
+
+
+            }
+            else
+            {
+                <tr>
+                    <td colspan="4">
+                        No Book Found.
+                    </td>
+                </tr>
+            }
+
+
+        </tbody>
+    </table>
+    <div>
+        @if (Model.Pager != null)
+        {
+            if (Model.Pager.CurrentPage > 1 && Model.Pager.TotalPages > 1)
+            {
+                <button class="pageButtons" data-pageNo="1">First</button>
+                <button class="pageButtons" data-pageNo="@(Model.Pager.CurrentPage -1 )">Previous</button>
+            }
+            for (var page = Model.Pager.StartPage; page <= Model.Pager.EndPage; page++)
+            {
+                string activeClass = Model.Pager.CurrentPage == page ? "active bg-info" : string.Empty;
+                <button class="@activeClass pageButtons" data-pageNo="@page">@page</button>
+
+            }
+            if (Model.Pager.CurrentPage < Model.Pager.EndPage)
+            {
+                <button class="pageButtons" data-pageNo="@(Model.Pager.CurrentPage + 1)">Next</button>
+                <button class="pageButtons" data-pageNo="@Model.Pager.EndPage">Last</button>
+            }
+        }
+
+    </div>
+</div>
+
+<script>
+
+    $('.pageButtons').click(function () {
+        $.ajax({
+            url: '/Book/BookTable',
+            data: {
+                pageNo: $(this).attr("data-pageNo"),
+                search: $("#searchTxt").val()
+            }
+        })
+            .done(function (response) {
+                $('#tableContainer').html(response);
+            })
+            .fail(function (XMLHttpRequest, textStatus, errorThrown) {
+                alert("Fail")
+            });
+    });
+    $('#nextBtn').click(function () {
+        $.ajax({
+            url: '/Book/BookTable',
+            data: {
+                pageNo: $(this).attr("data-pageNo")
+            }
+        })
+            .done(function (response) {
+                $('#tableContainer').html(response);
+            })
+            .fail(function (XMLHttpRequest, textStatus, errorThrown) {
+                alert("Fail")
+            });
+    });
+    $('#searchBtn').click(function () {
+        var searchValue = $("#searchTxt").val();
+        $.ajax({
+            url: '/Book/BookTable',
+            data: {
+                search: searchValue
+            }
+        })
+            .done(function (response) {
+                $('#tableContainer').html(response);
+            })
+            .fail(function (XMLHttpRequest, textStatus, errorThrown) {
+                alert("Fail")
+            });
+    });
+    $('#resetBtn').click(function () {
+        var searchValue = '';
+        $.ajax({
+            url: '/Book/BookTable',
+            data: {
+                search: searchValue
+            }
+        })
+            .done(function (response) {
+                $('#tableContainer').html(response);
+            })
+            .fail(function (XMLHttpRequest, textStatus, errorThrown) {
+                alert("Fail")
+            });
+    });
+    $('#newBtn').click(function () {
+        $.ajax({
+            url: '/Book/Create',
+        })
+            .done(function (response) {
+                $('#actionContainer').html(response);
+                focusAction();
+
+            })
+            .fail(function (XMLHttpRequest, textStatus, errorThrown) {
+                alert("Fail")
+            });
+    });
+    $('.editBtn').click(function () {
+        $.ajax({
+            url: '/Book/Edit',
+            data: {
+                ID: $(this).attr('data-id')
+            }
+        })
+            .done(function (response) {
+                $('#actionContainer').html(response);
+                focusAction();
+            })
+            .fail(function (XMLHttpRequest, textStatus, errorThrown) {
+                alert("Fail")
+            });
+    });
+    $('.deleteBtn').click(function () {
+        swal({
+            title: "Confirm",
+            text: "Once deleted, you will not be able to recover this!",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+        })
+            .then((willDelete) => {
+                if (willDelete) {
+                    $.ajax({
+                        type: "POST",
+                        url: '/Book/Delete',
+                        data: {
+                            ID: $(this).attr('data-id')
+                        }
+                    })
+                        .done(function (response) {
+                            $('#tableContainer').html(response);
+                            swal("Delete successfully.", {
+                                icon: "success",
+                            });
+                        })
+                        .fail(function (XMLHttpRequest, textStatus, errorThrown) {
+                            alert("Fail")
+                        });
+                }
+            });
+       @* var confirmDelete = confirm('Delete?');
+        if (confirmDelete) {
+            $.ajax({
+                type: "POST",
+                url: '/Book/Delete',
+                data: {
+                    ID: $(this).attr('data-id')
+                }
+            })
+                .done(function (response) {
+                    $('#tableContainer').html(response);
+                })
+                .fail(function (XMLHttpRequest, textStatus, errorThrown) {
+                    alert("Fail")
+                });
+        }*@
+
+    });
+    function focusAction() {
+        $('html, body').animate({
+            scrollTop: $("#actionContainer").offset().top + 400
+        }, 1000);
+    }
+</script>

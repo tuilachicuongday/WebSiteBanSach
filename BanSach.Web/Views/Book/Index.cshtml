@@ -1,0 +1,31 @@
+﻿
+@{
+    ViewBag.Title = "Books";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.4/jquery.validate.min.js"></script>
+<section class="flat-row flat-iconbox">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="title-section">
+                    <h2 class="title">
+                        Book
+                    </h2>
+                </div>
+            </div>
+        </div>
+        <div id="tableContainer">
+            @{
+                Html.RenderAction("BookTable");
+            }
+        </div>
+        <hr />
+        <div id="actionContainer">
+
+        </div>
+    </div>
+    <hr />
+
+</section>

@@ -1,0 +1,204 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <!-- Basic Page Needs -->
+    <meta charset="utf-8">
+    <!--[if IE]><meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'><![endif]-->
+    <title>AKC Book Store</title>
+    <!-- Mobile Specific Metas -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    <!-- Bootstrap  -->
+    <link rel="stylesheet" type="text/css" href="~/Content/stylesheets/bootstrap.css">
+
+    <!-- Theme Style -->
+    <link rel="stylesheet" type="text/css" href="~/Content/stylesheets/style.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/stylesheets/responsive.css">
+
+    <!-- Colors -->
+    <link rel="stylesheet" type="text/css" href="~/Content/stylesheets/colors/color1.css" id="colors">
+
+    <!-- Animation Style -->
+    <link rel="stylesheet" type="text/css" href="~/Content/stylesheets/animate.css">
+
+
+    <!-- Favicon and touch icons  -->
+    <link href="favicon.ico" rel="shortcut icon">
+    
+    <!--[if lt IE 9]>
+        <script src="~/Content/javascript/html5shiv.js"></script>
+        <script src="~/Content/javascript/respond.min.js"></script>
+    <![endif]-->
+
+    <script src="~/Content/javascript/jquery.min.js"></script>
+    <script src="~/Content/javascript/jquery-ui.js"></script>
+
+</head>
+<body class="header_sticky header-style-2 has-menu-extra">
+    <!-- Preloader -->
+    <div id="loading-overlay">
+        <div class="loader"></div>
+    </div>
+
+    <!-- Boxed -->
+    <div class="boxed">
+        <div id="site-header-wrap">
+            <!-- Header -->
+            <header id="header" class="header clearfix">
+                <div class="container-fluid clearfix container-width-93" id="site-header-inner">
+                    <!--<div id="logo" class="logo float-left">
+                        <a href="#" title="logo">
+                            <img src="" alt="image" width="107" height="24" data-retina="images/akcstore.jpg" data-width="107" data-height="24">
+                        </a>
+                    </div>-->
+                    <!-- /.logo -->
+                    <ul class="menu-extra">
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <a> @User.Identity.Name</a>
+                            <form method="post" action="@Url.Action("LogOff", "Account")" id="signoutfrm" style="display:none;">
+                                @Html.AntiForgeryToken()
+                            </form>
+
+                            <a href="" onclick="$('#signoutfrm').submit(); return false;">&nbsp;LOGOUT</a>
+                            <li class="box-login box-cart nav-top-cart-wrapper">
+                                <a class="icon_cart nav-cart-trigger active" href="@Url.Action("Checkout", "Shop")"><span id="cartProductsCount">0</span></a>
+                            </li>
+                            <li class="box-login box-cart nav-top-cart-wrapper">
+
+                            </li>
+
+                        }
+                        else
+                        {
+                            <li class="box-login box-cart nav-top-cart-wrapper">
+                                <a class="icon_cart nav-cart-trigger active" href="@Url.Action("Checkout","Shop")"><span id="cartProductsCount">0</span></a>
+                                <a class="icon_login nav-cart-trigger active" href="@Url.Action("Login","Account")"></a>
+                            </li>
+                        }
+                    </ul><!-- /.menu-extra -->
+                    <div class="nav-wrap">
+                        <nav id="mainnav" class="mainnav">
+                            <ul class="menu">
+                                <li>
+                                    <a href="@Url.Action("Index","Home")">HOME</a>
+                                </li>
+                                <li>
+                                    <a href="@Url.Action("Index","Shop")">BOOK</a>
+                                </li>
+                                <li>
+                                    <a href="@Url.Action("Checkout","Shop")">CHECKOUT</a>
+                                </li>
+                            </ul>
+                        </nav><!-- /.mainnav -->
+                    </div><!-- /.nav-wrap -->
+                </div><!-- /.container-fluid -->
+            </header><!-- /header -->
+        </div><!-- /.site-header-wrap -->
+
+        @RenderBody()
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="widget widget-link">
+                            <ul>
+                                <li><a href="#">About Us</a></li>
+                                <li><a href="#">Online Store</a></li>
+                                <li><a href="contact.html">Contact Us</a></li>
+                            </ul>
+                        </div><!-- /.widget -->
+                    </div><!-- /.col-md-3 -->
+                    <div class="col-md-3">
+                        <div class="widget widget-link link-login">
+                            <ul>
+                                <li><a href="#">Login/ Register</a></li>
+                                <li><a href="#">Your Cart</a></li>
+                                <li><a href="#">Your checkout</a></li>
+                            </ul>
+                        </div><!-- /.widget -->
+                    </div><!-- /.col-md-3 -->
+                    <div class="col-md-3">
+                        <div class="widget widget-link link-faq">
+                            <ul>
+                                <li><a href="faqs.html">FAQs</a></li>
+                                <li><a href="#">Term of service</a></li>
+                                <li><a href="#">Privacy Policy</a></li>
+                            </ul>
+                        </div><!-- /.widget -->
+                    </div><!-- /.col-md-3 -->
+                    <div class="col-md-3">
+                        <div class="widget widget-brand">
+                            @*                            <div class="logo logo-footer">
+                                    <a href="index.html"><img src="~/Content/images/logo@2x.png" alt="image" width="107" height="24"></a>
+                                </div>*@
+                            <ul class="flat-contact">
+                                <li class="address">828 Sư Vạn Hạnh, Phường 12, Quận 10, Thành phố Hồ Chí Minh</li>
+                                <li class="phone">0909388591</li>
+                                <li class="email">tartarus20000@gmail.com</li>
+                            </ul><!-- /.flat-contact -->
+                        </div><!-- /.widget -->
+                    </div><!-- /.col-md-3 -->
+                </div><!-- /.row -->
+            </div><!-- /.container -->
+        </footer><!-- /.footer -->
+
+        <div class="footer-bottom">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <p class="copyright text-center">Copyright 2022 <a href="#">AKCBookStore</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Go Top -->
+        <a class="go-top">
+            <i class="fa fa-chevron-up"></i>
+        </a>
+    </div>
+
+    <!-- Javascript -->
+    <script src="~/Content/javascript/tether.min.js"></script>
+    <script src="~/Content/javascript/bootstrap.min.js"></script>
+    <script src="~/Content/javascript/jquery.easing.js"></script>
+    <script src="~/Content/javascript/parallax.js"></script>
+    <script src="~/Content/javascript/jquery-waypoints.js"></script>
+    <script src="~/Content/javascript/jquery-countTo.js"></script>
+    <script src="~/Content/javascript/jquery.countdown.js"></script>
+    <script src="~/Content/javascript/jquery.flexslider-min.js"></script>
+    <script src="~/Content/javascript/images-loaded.js"></script>
+    <script src="~/Content/javascript/jquery.isotope.min.js"></script>
+    <script src="~/Content/javascript/magnific.popup.min.js"></script>
+    <script src="~/Content/javascript/jquery.hoverdir.js"></script>
+    <script src="~/Content/javascript/owl.carousel.min.js"></script>
+    <script src="~/Content/javascript/equalize.min.js"></script>
+    <script src="~/Content/javascript/gmap3.min.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAIEU6OT3xqCksCetQeNLIPps6-AYrhq-s&region=GB"></script>
+    <script src="~/Content/javascript/jquery-ui.js"></script>
+
+    <script src="~/Content/javascript/jquery.cookie.js"></script>
+    <script src="~/Content/javascript/main.js"></script>
+
+    <!-- Revolution Slider -->
+    <script src="~/Content/rev-slider/js/jquery.themepunch.tools.min.js"></script>
+    <script src="~/Content/rev-slider/js/jquery.themepunch.revolution.min.js"></script>
+    <script src="~/Content/javascript/rev-slider.js"></script>
+    <!-- Load Extensions only on Local File Systems ! The following part can be removed on Server for On Demand Loading -->
+    <script src="~/Content/rev-slider/js/extensions/revolution.extension.actions.min.js"></script>
+    <script src="~/Content/rev-slider/js/extensions/revolution.extension.carousel.min.js"></script>
+    <script src="~/Content/rev-slider/js/extensions/revolution.extension.kenburn.min.js"></script>
+    <script src="~/Content/rev-slider/js/extensions/revolution.extension.layeranimation.min.js"></script>
+    <script src="~/Content/rev-slider/js/extensions/revolution.extension.migration.min.js"></script>
+    <script src="~/Content/rev-slider/js/extensions/revolution.extension.navigation.min.js"></script>
+    <script src="~/Content/rev-slider/js/extensions/revolution.extension.parallax.min.js"></script>
+    <script src="~/Content/rev-slider/js/extensions/revolution.extension.slideanims.min.js"></script>
+    <script src="~/Content/rev-slider/js/extensions/revolution.extension.video.min.js"></script>
+
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+</body>
+</html>

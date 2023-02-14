@@ -1,0 +1,170 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\EntityFramework.6.4.4\build\EntityFramework.props" Condition="Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{9C0C7B04-76B4-442D-82F3-684B3A78B58F}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>BanSach.Database</RootNamespace>
+    <AssemblyName>BanSach.Database</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="BanSachContext.cs" />
+    <Compile Include="Migrations\202206151703105_initialized.cs" />
+    <Compile Include="Migrations\202206151703105_initialized.designer.cs">
+      <DependentUpon>202206151703105_initialized.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202206161714333_addedIsfeatured.cs" />
+    <Compile Include="Migrations\202206161714333_addedIsfeatured.designer.cs">
+      <DependentUpon>202206161714333_addedIsfeatured.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202206170539392_ImageURLAdded.cs" />
+    <Compile Include="Migrations\202206170539392_ImageURLAdded.designer.cs">
+      <DependentUpon>202206170539392_ImageURLAdded.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202206170745358_addedBasicValidations.cs" />
+    <Compile Include="Migrations\202206170745358_addedBasicValidations.designer.cs">
+      <DependentUpon>202206170745358_addedBasicValidations.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202206181828455_CategoryID.cs" />
+    <Compile Include="Migrations\202206181828455_CategoryID.designer.cs">
+      <DependentUpon>202206181828455_CategoryID.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202206181934344_configurationstable.cs" />
+    <Compile Include="Migrations\202206181934344_configurationstable.designer.cs">
+      <DependentUpon>202206181934344_configurationstable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202206190952458_AddNewProperUser.cs" />
+    <Compile Include="Migrations\202206190952458_AddNewProperUser.designer.cs">
+      <DependentUpon>202206190952458_AddNewProperUser.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202206191029092_addOrderAndOrderItem.cs" />
+    <Compile Include="Migrations\202206191029092_addOrderAndOrderItem.designer.cs">
+      <DependentUpon>202206191029092_addOrderAndOrderItem.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202206191331531_quantityOrderItem.cs" />
+    <Compile Include="Migrations\202206191331531_quantityOrderItem.designer.cs">
+      <DependentUpon>202206191331531_quantityOrderItem.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202206191619160_addOrderDetail.cs" />
+    <Compile Include="Migrations\202206191619160_addOrderDetail.designer.cs">
+      <DependentUpon>202206191619160_addOrderDetail.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202206201418244_descriptionmax.cs" />
+    <Compile Include="Migrations\202206201418244_descriptionmax.designer.cs">
+      <DependentUpon>202206201418244_descriptionmax.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202206201428118_bansach.cs" />
+    <Compile Include="Migrations\202206201428118_bansach.designer.cs">
+      <DependentUpon>202206201428118_bansach.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202206201446137_author.cs" />
+    <Compile Include="Migrations\202206201446137_author.designer.cs">
+      <DependentUpon>202206201446137_author.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\BanSach.Entities\BanSach.Entities.csproj">
+      <Project>{72448aae-f1f9-400f-958c-258cd9c7111f}</Project>
+      <Name>BanSach.Entities</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\202206151703105_initialized.resx">
+      <DependentUpon>202206151703105_initialized.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202206161714333_addedIsfeatured.resx">
+      <DependentUpon>202206161714333_addedIsfeatured.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202206170539392_ImageURLAdded.resx">
+      <DependentUpon>202206170539392_ImageURLAdded.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202206170745358_addedBasicValidations.resx">
+      <DependentUpon>202206170745358_addedBasicValidations.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202206181828455_CategoryID.resx">
+      <DependentUpon>202206181828455_CategoryID.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202206181934344_configurationstable.resx">
+      <DependentUpon>202206181934344_configurationstable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202206190952458_AddNewProperUser.resx">
+      <DependentUpon>202206190952458_AddNewProperUser.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202206191029092_addOrderAndOrderItem.resx">
+      <DependentUpon>202206191029092_addOrderAndOrderItem.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202206191331531_quantityOrderItem.resx">
+      <DependentUpon>202206191331531_quantityOrderItem.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202206191619160_addOrderDetail.resx">
+      <DependentUpon>202206191619160_addOrderDetail.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202206201418244_descriptionmax.resx">
+      <DependentUpon>202206201418244_descriptionmax.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202206201428118_bansach.resx">
+      <DependentUpon>202206201428118_bansach.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202206201446137_author.resx">
+      <DependentUpon>202206201446137_author.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.4.4\build\EntityFramework.props'))" />
+    <Error Condition="!Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.4.4\build\EntityFramework.targets'))" />
+  </Target>
+  <Import Project="..\packages\EntityFramework.6.4.4\build\EntityFramework.targets" Condition="Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.targets')" />
+</Project>

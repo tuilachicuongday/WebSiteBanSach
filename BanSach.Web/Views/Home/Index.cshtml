@@ -1,0 +1,57 @@
+﻿@model BanSach.Web.ViewModels.HomeViewModel
+@{
+    ViewBag.Title = "Home Page";
+}
+
+<!-- SLIDER -->
+<div class="rev_slider_wrapper fullwidthbanner-container">
+    <div id="rev-slider1" class="rev_slider fullwidthabanner">
+        <ul>
+            <!-- Slide 1 -->
+            <li data-transition="random">
+                <!-- Main Image -->
+                <img src="https://cdn0.fahasa.com/media/magentothem/banner7/Mega_T062022_MAINBANNER.jpg" alt="" data-bgposition="center center" data-no-retina>
+            </li>
+            <!-- /End Slide 1 -->
+            <!-- Slide 2 -->
+            <li data-transition="random">
+                <!-- Main Image -->
+                <img src="https://cdn0.fahasa.com/media/magentothem/banner7/MCBook_062022_840x320.jpg" alt="" data-bgposition="center center" data-no-retina>
+            </li>
+            <!-- /End Slide 2 -->
+        </ul>
+    </div>
+</div>
+<!-- END SLIDER -->
+
+<!-- PRODUCT NEW -->
+<section class="flat-row row-product-new">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="title-section margin-bottom-52">
+                    <h2 class="title">
+                        New Book
+                    </h2>
+                </div>
+                @{Html.RenderAction("LatestBooks", "Widget");}
+            </div>
+        </div><!-- /.row -->
+    </div><!-- /.container -->
+</section>
+<!-- END PRODUCT NEW -->
+<!-- PRODUCT -->
+
+<section class="flat-row row-product-project style-1">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="title-section margin-bottom-41">
+                    <h2 class="title">Best Sale</h2>
+                </div>
+                @{Html.RenderAction("Books", "Widget");}
+            </div>
+        </div>
+    </div>
+</section>
+<!-- END PRODUCT -->
